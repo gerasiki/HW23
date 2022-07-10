@@ -2,14 +2,13 @@ import os
 
 from flask import Flask, request
 from werkzeug.exceptions import abort
+
 from utils import build_query
 
 app = Flask(__name__)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "data")
-print(BASE_DIR)
-print(DATA_DIR)
 
 
 @app.route("/perform_query")
@@ -23,12 +22,12 @@ def perform_query():
         # query = request.args['query']
         file_name = request.args.get('file_name')
     except KeyError:
-        print('Key!!')
+        # print('Key!!')
         abort(400)
     # проверить, что файла file_name существует в папке DATA_DIR, при ошибке вернуть ошибку 400
     file_path = os.path.join(DATA_DIR, file_name)
     if not os.path.exists(file_path):
-        print('path!!')
+        # print('Path!!')
         abort(400)
 
     with open(file_path) as file:
@@ -43,4 +42,4 @@ def perform_query():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
